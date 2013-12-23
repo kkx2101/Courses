@@ -27,10 +27,11 @@ module.exports = (grunt) ->
           sourceMap: true
 
     forever:
-      options:
-        index: 'app/server.coffee'
-        command: 'coffee'
-        logDir: 'logs'
+      backend:
+        options:
+          index: 'app/server.coffee'
+          command: 'coffee'
+          logDir: 'logs'
 
     # Generates the CSS files from less files
     less:
@@ -51,8 +52,11 @@ module.exports = (grunt) ->
     shell:
       server:
         command:
-          'python -m SimpleHTTPServer' + DEV_PORT
+          "python -m SimpleHTTPServer #{DEV_PORT}"
         options:
+          stdout: true
+          stderr: true
+          failOnError: true
           execOptions:
             cwd: 'public'
 
@@ -114,8 +118,7 @@ module.exports = (grunt) ->
     # if ltld
     #   ltld.add 'courses', DEV_PORT
 
-    grunt.task.run 'default'
-    grunt.task.run 'shell:server', 'watch'
+    grunt.task.run 'default', 'shell:server'
     grunt.log.writeln "Server now running at localhost:#{DEV_PORT}"
 
   grunt.loadNpmTasks 'grunt-contrib-clean'

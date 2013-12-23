@@ -10,7 +10,7 @@ Build instructions:
 4. In this project directory: `npm install`
 5. In this project directory: `grunt`
 6. Serve `public` by running `grunt server`.
-  (This also runs `grunt watch` for you automatically.)
 7. Go to `localhost:9005`.
+8. `grunt watch` must also be run if frontend source files are being changed.
 
 Make sure you copy the Facebook client secret into `settings.courses`.

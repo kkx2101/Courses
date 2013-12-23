@@ -6,17 +6,9 @@ defaultConfig =
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET
     callbackURL: 'http://courses.adicu.com/'
 
-development =
-  mongo:
-    db: process.env.MONGO_DB or 'courses'
-    uriPre: 'mongodb://localhost/'
+development = {}
 
-production =
-  mongo:
-    db: process.env.MONGO_DB or 'courses'
-    host: 'localhost'
-    port: 27017
-    uriPre: 'mongodb://localhost/'
+production = {}
 
 module.exports = (env) ->
   if env == 'development'

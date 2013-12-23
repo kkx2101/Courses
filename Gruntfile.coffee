@@ -1,4 +1,7 @@
+
 module.exports = (grunt) ->
+
+  DEV_PORT = 9005
 
   # Project configuration.
   grunt.initConfig
@@ -44,6 +47,14 @@ module.exports = (grunt) ->
       compile:
         files:
           'generated/js/courses.ngmin.js': ['public/js/courses.js']
+
+    shell:
+      server:
+        command:
+          'python -m SimpleHTTPServer' + DEV_PORT
+        options:
+          execOptions:
+            cwd: 'public'
 
     uglify:
       src:
@@ -97,6 +108,16 @@ module.exports = (grunt) ->
         tasks:
           ['less']
 
+  grunt.registerTask 'server', () ->
+    # Local TLD
+    # ltld = require 'local-tld-lib'
+    # if ltld
+    #   ltld.add 'courses', DEV_PORT
+
+    grunt.task.run 'default'
+    grunt.task.run 'shell:server', 'watch'
+    grunt.log.writeln "Server now running at localhost:#{DEV_PORT}"
+
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
@@ -107,6 +128,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-bower-task'
   grunt.loadNpmTasks 'grunt-ngmin'
   grunt.loadNpmTasks 'grunt-forever'
+  grunt.loadNpmTasks 'grunt-shell'
 
   grunt.registerTask 'default', ['build', 'lib', 'clean']
   grunt.registerTask 'build', ['coffee', 'ngmin', 'uglify:src', 'less']

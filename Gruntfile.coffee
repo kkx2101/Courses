@@ -59,7 +59,16 @@ module.exports = (grunt) ->
           failOnError: true
           execOptions:
             cwd: 'public'
-
+      forward:
+        command: () ->
+          FORWARD_PORTS = [8080, 28015]
+          cmdToRun = "ssh -N"
+          for port in FORWARD_PORTS
+            cmdToRun += " -L #{port}:localhost:#{port}"
+          cmdToRun += " ubuntu@db.data.adicu.com"
+          cmdToRun
+      options:
+        failOnError: true
     uglify:
       src:
         files:

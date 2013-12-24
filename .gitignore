@@ -1,5 +1,6 @@
 *.swp
 *~
+*.pyc
 .DS_Store
 public/css
 public/js
@@ -11,3 +12,4 @@ sftp-config.json
 logs/
 .vagrant
 settings.courses
+venv/

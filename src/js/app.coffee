@@ -12,6 +12,7 @@ angular.module("Courses", [
   'ezfb', # angularjs-ezfb, FB SDK wrapper
   '$strap.directives', # angular-strap
   'elasticjs.service', # elastic.js
+  'restangular', # Restangular
 ])
 .config ($routeProvider) ->
   $routeProvider.when "/schedule",
@@ -26,6 +27,8 @@ angular.module("Courses", [
   $FBProvider.setInitParams
     appId: '478856265465801'
     cookie: true
+.config (RestangularProvider) ->
+  RestangularProvider.setBaseUrl "/api"
 .run (UserAuth) ->
   UserAuth.fbInit()
 

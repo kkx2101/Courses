@@ -3,10 +3,12 @@ angular.module('Courses.models')
   $rootScope,
   $location,
   $q,
+  $http,
   Course,
   CourseState,
   Section,
   Subsection,
+  Restangular,
 ) ->
   class Schedule
     constructor: () ->
@@ -129,6 +131,23 @@ angular.module('Courses.models')
       $location.search 'semester', @semester()
       $location.search 'sections', sectionsStr
 
+    save: () ->
+      d = $q.defer()
+      data = @serialize()
+
+      schedules = Restangular.all 'schedule'
+      schedules.post(data).then (res) ->
+        console.log 'Schedule saved to server'
+        d.resolve res
+      , (err) ->
+        d.reject err
+
+    serialize: () ->
+      data = {}
+      location = $location.search()
+      data.semester = location['semester']
+      data.sections = location['sections'].split ','
+      data
 
     # Will generate an array of all selected courses
     # which have sections for given day(s)
@@ -216,6 +235,7 @@ angular.module('Courses.models')
 
       if @shouldUpdateURL
         @updateURL()
+        @save()
 
     # TODO: Implement. Clear schedule, etc.
     updateNewSemester: () ->

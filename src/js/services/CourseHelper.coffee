@@ -1,5 +1,21 @@
 angular.module('Courses.services')
-.factory 'CourseHelper', () ->
+.factory 'CourseHelper', (
+  CONFIG,
+) ->
+  # Detects the environment in which Courses is running
+  # either development or production
+  isDevelopment: ->
+    hostnameMatch = window.location.hostname == "courses.adicu.com"
+    portMatch = window.location.port == "" or
+      window.location.port == "80"
+    not (hostnameMatch and portMatch)
+
+  getHoodieURL: ->
+    if @isDevelopment()
+      return CONFIG.HOODIE.DEV
+    else
+      return CONFIG.HOODIE.PROD
+
   # Converts days of format MTWRF into ints.
   # M => 0, W => 2, etc.
 	parseDays: (days) ->

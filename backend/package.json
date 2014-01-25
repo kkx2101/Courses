@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.1",
+  "type": "app",
+  "dependencies": {
+    "hoodie-server": "~0.8.14",
+    "hoodie-plugin-appconfig": "~0.1.0",
+    "hoodie-plugin-email": "~0.1.1",
+    "hoodie-plugin-users": "0.0.9"
+  },
+  "subdomain": "hoodie-backend",
+  "domains": [
+    "admin.hoodie-backend.jit.su",
+    "couch.hoodie-backend.jit.su"
+  ],
+  "scripts": {
+    "start": "node node_modules/hoodie-server/bin/start"
+  },
+  "hoodie": {
+    "plugins": [
+      "hoodie-plugin-appconfig",
+      "hoodie-plugin-email",
+      "hoodie-plugin-users"
+    ]
+  }
+}
